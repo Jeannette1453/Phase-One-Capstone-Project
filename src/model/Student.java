@@ -1,10 +1,13 @@
 package model;
-
+import java.util.HashMap;
+import java.util.Map;
 public abstract class Student extends Person {
 
     private String studentId;
     private double gpa;
     private String department;
+    private Map<Course, Double> courses = new HashMap<>();
+
 
     public Student(String name, String email, String studentId, double gpa, String department) {
         super(name, email);
@@ -28,6 +31,21 @@ public abstract class Student extends Person {
     }
     public void setDepartment(String department) {
         this.department = department;
+    }
+    public void enrollInCourse(Course course) {
+        courses.put(course, null);
+    }
+
+    public void addGrade(Course course, double grade) {
+        if (courses.containsKey(course)) {
+            courses.put(course, grade);
+        } else {
+            System.out.println("Student not enrolled in this course");
+        }
+    }
+
+    public Map<Course, Double> getCourses() {
+        return courses;
     }
 
     public abstract double calculateTuition(int credits);
