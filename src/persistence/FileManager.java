@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
 public class FileManager {
     public static final String STUDENTS_FILE = "data/students.csv";
     public static final String COURSES_FILE = "data/courses.csv";
@@ -32,6 +34,28 @@ public class FileManager {
         for (Course c : courses) {
             writer.write(c.getCourseCode() + "," + c.getCourseName() + "," + c.getCredits() + "," + c.getMaxStudents());
             writer.newLine();
+        }
+
+        writer.close();
+    }
+
+    public static final String ENROLLMENTS_FILE = "data/enrollments.csv";
+
+    public static void saveEnrollments(List<Student> students) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(ENROLLMENTS_FILE));
+
+        writer.write("studentId,courseCode,grade");
+        writer.newLine();
+
+        for (Student s : students) {
+            for (Map.Entry<Course, Double> entry : s.getCourses().entrySet()) {
+                Course c = entry.getKey();
+                Double grade = entry.getValue();
+                String gradeText = (grade == null) ? "" : grade.toString();
+
+                writer.write(s.getStudentId() + "," + c.getCourseCode() + "," + gradeText);
+                writer.newLine();
+            }
         }
 
         writer.close();
