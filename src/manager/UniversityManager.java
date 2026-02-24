@@ -66,4 +66,22 @@ public class UniversityManager {
     public List<Course> getCourses() {
         return courses;
     }
+
+    public Student findStudentById(String studentId) {
+        for (Student s : students) {
+            if (s.getStudentId().equals(studentId)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public Course findCourseByCode(String courseCode) {
+        for (Course c : courses) {
+            if (c.getCourseCode().equalsIgnoreCase(courseCode)) {
+                return c;
+            }
+        }
+        return null;
+    }
 }
