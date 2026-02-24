@@ -43,6 +43,22 @@ public class UniversityManager {
         return total / count;
     }
 
+    public Student getTopStudent() {
+        if (students.isEmpty()) {
+            return null;
+        }
+
+        Student top = students.get(0);
+
+        for (Student s : students) {
+            if (s.getGpa() > top.getGpa()) {
+                top = s;
+            }
+        }
+
+        return top;
+    }
+
     public List<Student> getStudents() {
         return students;
     }
