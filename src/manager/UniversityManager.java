@@ -4,7 +4,6 @@ import exceptions.CourseFullException;
 import exceptions.StudentAlreadyEnrolledException;
 import model.Course;
 import model.Student;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +23,24 @@ public class UniversityManager {
     public void enrollStudentInCourse(Student student, Course course)
             throws CourseFullException, StudentAlreadyEnrolledException {
         course.enrollStudent(student);
+    }
+
+    public double averageGpaByDepartment(String department) {
+        double total = 0;
+        int count = 0;
+
+        for (Student s : students) {
+            if (s.getDepartment().equalsIgnoreCase(department)) {
+                total += s.getGpa();
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            return 0;
+        }
+
+        return total / count;
     }
 
     public List<Student> getStudents() {
