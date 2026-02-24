@@ -24,20 +24,20 @@ public class Main {
             System.out.println("No saved data yet (first run).");
         }
         while (true) {
-            System.out.println("\n===== UNIVERSITY MENU =====");
-            System.out.println("1) Register Student");
+            System.out.println("\n1) Register Student");
             System.out.println("2) Create Course");
             System.out.println("3) Enroll Student in Course");
             System.out.println("4) View Students");
             System.out.println("5) View Courses");
-            System.out.println("6) Exit");
-            System.out.print("Choose option: ");
+            System.out.println("6) View Student Record");
+            System.out.println("7) Dean's List");
+            System.out.println("8) Exit");
 
+            System.out.print("Choose option: ");
             int choice = sc.nextInt();
             sc.nextLine();
 
             if (choice == 1) {
-                System.out.println("\n--- Register Student ---");
                 System.out.print("Name: ");
                 String name = sc.nextLine();
 
@@ -60,12 +60,10 @@ public class Main {
 
                 Student s = new UndergraduateStudent(name, email, id, gpa, dept, flat);
                 um.registerStudent(s);
-
                 System.out.println("Student registered!");
 
             } else if (choice == 2) {
-                System.out.println("\n--- Create Course ---");
-                System.out.print("Course Code (example CS101): ");
+                System.out.print("Course Code: ");
                 String code = sc.nextLine();
 
                 System.out.print("Course Name: ");
@@ -81,11 +79,10 @@ public class Main {
 
                 Course c = new Course(code, cname, credits, max);
                 um.createCourse(c);
-
-                System.out.println("Course created!");
+                System.out.println(" Course created!");
 
             } else if (choice == 3) {
-                System.out.println("\n--- Enroll Student ---");
+
                 System.out.print("Enter Student ID: ");
                 String studentId = sc.nextLine();
 
@@ -112,7 +109,6 @@ public class Main {
                 }
 
             } else if (choice == 4) {
-                System.out.println("\n--- Students ---");
                 if (um.getStudents().isEmpty()) {
                     System.out.println("No students yet.");
                 } else {
@@ -122,7 +118,6 @@ public class Main {
                 }
 
             } else if (choice == 5) {
-                System.out.println("\n--- Courses ---");
                 if (um.getCourses().isEmpty()) {
                     System.out.println("No courses yet.");
                 } else {
@@ -132,6 +127,22 @@ public class Main {
                 }
 
             } else if (choice == 6) {
+                System.out.print("Enter Student ID: ");
+                String id = sc.nextLine();
+
+                Student s = um.findStudentById(id);
+
+                if (s == null) {
+                    System.out.println(" Student not found!");
+                } else {
+                    um.printStudentRecord(s);
+                }
+
+            } else if (choice == 7) {
+
+                um.printDeansList();
+
+            } else if (choice == 8) {
 
                 try {
                     FileManager.saveStudents(um.getStudents());
@@ -139,7 +150,7 @@ public class Main {
                     FileManager.saveEnrollments(um.getStudents());
                     System.out.println("Data saved. Bye!");
                 } catch (Exception e) {
-                    System.out.println("Failed to save: " + e.getMessage());
+                    System.out.println(" Failed to save: " + e.getMessage());
                 }
                 break;
 
@@ -147,7 +158,6 @@ public class Main {
                 System.out.println("Invalid choice. Try again.");
             }
         }
-
         sc.close();
     }
 }

@@ -139,5 +139,22 @@ public class UniversityManager {
         reader.close();
     }
 
+    public void printDeansList() {
+        System.out.println("\n--- Dean's List (GPA > 3.5) ---");
+
+        boolean found = false;
+
+        for (Student s : students) {
+            if (s.getGpa() > 3.5) {
+                System.out.println(s.getName() + " - GPA: " + s.getGpa());
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No students qualified.");
+        }
+    }
+
 
 }
