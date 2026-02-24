@@ -4,6 +4,7 @@ import manager.UniversityManager;
 import model.Course;
 import model.Student;
 import model.UndergraduateStudent;
+import persistence.FileManager;
 
 import java.util.Scanner;
 
@@ -14,6 +15,14 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         UniversityManager um = new UniversityManager();
 
+        try {
+            um.getStudents().addAll(FileManager.loadStudents());
+            um.getCourses().addAll(FileManager.loadCourses());
+            um.loadEnrollments();
+            System.out.println(" Data loaded successfully.");
+        } catch (Exception e) {
+            System.out.println("No saved data yet (first run).");
+        }
         while (true) {
             System.out.println("\n===== UNIVERSITY MENU =====");
             System.out.println("1) Register Student");
@@ -123,7 +132,15 @@ public class Main {
                 }
 
             } else if (choice == 6) {
-                System.out.println("Saving not added yet (Lab 3). Bye!");
+
+                try {
+                    FileManager.saveStudents(um.getStudents());
+                    FileManager.saveCourses(um.getCourses());
+                    FileManager.saveEnrollments(um.getStudents());
+                    System.out.println("Data saved. Bye!");
+                } catch (Exception e) {
+                    System.out.println("Failed to save: " + e.getMessage());
+                }
                 break;
 
             } else {
