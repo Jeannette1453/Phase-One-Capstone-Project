@@ -1,11 +1,15 @@
 package manager;
-
 import exceptions.CourseFullException;
 import exceptions.StudentAlreadyEnrolledException;
 import model.Course;
 import model.Student;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import persistence.FileManager;
 
 public class UniversityManager {
 
@@ -83,6 +87,38 @@ public class UniversityManager {
             }
         }
         return null;
+    }
+
+    public void loadEnrollments() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(FileManager.ENROLLMENTS_FILE));
+
+        String line = reader.readLine();
+        while ((line = reader.readLine()) != null) {
+            if (line.trim().isEmpty()) continue;
+
+            String[] parts = line.split(",");
+            String studentId = parts[0];
+            String courseCode = parts[1];
+            String gradeText = (parts.length >= 3) ? parts[2] : "";
+
+            Student s = findStudentById(studentId);
+            Course c = findCourseByCode(courseCode);
+
+            if (s != null && c != null) {
+                try {
+                    enrollStudentInCourse(s, c);
+                } catch (Exception ignored) {
+
+                }
+
+                if (!gradeText.isEmpty()) {
+                    double grade = Double.parseDouble(gradeText);
+                    s.addGrade(c, grade);
+                }
+            }
+        }
+
+        reader.close();
     }
 
 
