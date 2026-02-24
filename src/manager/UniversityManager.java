@@ -89,6 +89,24 @@ public class UniversityManager {
         return null;
     }
 
+    public void printStudentRecord(Student student) {
+        System.out.println("\n--- Student Record ---");
+        System.out.println("Name: " + student.getName());
+        System.out.println("Department: " + student.getDepartment());
+        System.out.println("GPA: " + student.getGpa());
+
+        if (student.getCourses().isEmpty()) {
+            System.out.println("No enrolled courses.");
+        } else {
+            System.out.println("Courses:");
+            for (Course c : student.getCourses().keySet()) {
+                Double grade = student.getCourses().get(c);
+                String gradeText = (grade == null) ? "Not graded" : grade.toString();
+                System.out.println("- " + c.getCourseCode() + " (" + gradeText + ")");
+            }
+        }
+    }
+
     public void loadEnrollments() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(FileManager.ENROLLMENTS_FILE));
 
