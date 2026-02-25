@@ -108,9 +108,13 @@ public class UniversityManager {
             System.out.println("Courses:");
             for (Course c : student.getCourses().keySet()) {
                 Double grade = student.getCourses().get(c);
-                String gradeText = (grade == null) ? "Not graded" : grade.toString();
-                System.out.println("- " + c.getCourseCode() + " (" + gradeText + ")");
-            }
+                String letter = student.gradeToLetter(grade);
+
+                if (grade == null) {
+                    System.out.println("- " + c.getCourseCode() + " (Not graded)");
+                } else {
+                    System.out.println("- " + c.getCourseCode() + " (" + grade + " = " + letter + ")");
+                }            }
         }
     }
 

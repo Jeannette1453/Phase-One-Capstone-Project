@@ -1,3 +1,4 @@
 studentId,name,email,gpa,department,type,flatRate,perCreditRate,researchFee
 25575,janet,jane@gmail.com,4.0,software,UNDERGRAD,200.0,0.0,0.0
 25577,quin,quin@gmail.com,5.0,network,GRAD,0.0,1000.0,2000.0
+233,mutoni,umut@gmail.com,5.0,software,UNDERGRAD,100.0,0.0,0.0
