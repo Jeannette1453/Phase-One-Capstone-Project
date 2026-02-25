@@ -54,6 +54,14 @@ public abstract class Student extends Person {
         }
         return total;
     }
+    public String gradeToLetter(Double grade) {
+        if (grade == null) return "Not graded";
+        if (grade >= 80) return "A";
+        if (grade >= 70) return "B";
+        if (grade >= 60) return "C";
+        if (grade >= 50) return "D";
+        return "F";
+    }
 
     public abstract double calculateTuition(int credits);
 

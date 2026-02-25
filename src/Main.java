@@ -32,7 +32,8 @@ public class Main {
             System.out.println("5) View Courses");
             System.out.println("6) View Student Record");
             System.out.println("7) Dean's List");
-            System.out.println("8) Exit");
+            System.out.println("8) Add Grade");
+            System.out.println("9) Exit");
 
             System.out.print("Choose option: ");
             int choice = sc.nextInt();
@@ -42,7 +43,6 @@ public class Main {
 
                 System.out.println("\n--- Register Student ---");
 
-                // 1) Ask type
                 System.out.println("Student Type:");
                 System.out.println("1) Undergraduate");
                 System.out.println("2) Graduate");
@@ -174,7 +174,46 @@ public class Main {
 
                 um.printDeansList();
 
-            } else if (choice == 8) {
+            }
+            else if (choice == 8) {
+                System.out.println("\n--- Add Grade ---");
+
+                System.out.print("Enter Student ID: ");
+                String studentId = sc.nextLine();
+
+                System.out.print("Enter Course Code: ");
+                String courseCode = sc.nextLine();
+
+                Student s = um.findStudentById(studentId);
+                Course c = um.findCourseByCode(courseCode);
+
+                if (s == null) {
+                    System.out.println("Student not found!");
+                    continue;
+                }
+                if (c == null) {
+                    System.out.println("Course not found!");
+                    continue;
+                }
+
+
+                if (!s.getCourses().containsKey(c)) {
+                    System.out.println("Student is not enrolled in this course!");
+                    continue;
+                }
+
+                System.out.print("Enter numeric grade (0 - 100): ");
+                double grade = sc.nextDouble();
+                sc.nextLine();
+
+                if (grade < 0 || grade > 100) {
+                    System.out.println("Invalid grade! Must be between 0 and 100.");
+                    continue;
+                }
+
+                s.addGrade(c, grade);
+                System.out.println("Grade saved!");
+            }else if (choice == 9) {
 
                 try {
                     FileManager.saveStudents(um.getStudents());

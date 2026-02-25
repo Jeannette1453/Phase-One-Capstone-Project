@@ -24,7 +24,6 @@ public class FileManager {
     public static final String COURSES_FILE = "data/courses.csv";
     public static final String ENROLLMENTS_FILE = "data/enrollments.csv";
 
-    //  Create folder "data" if it doesn't exist
     private static void ensureDataFolderExists() throws IOException {
         Path dataDir = Paths.get("data");
         if (!Files.exists(dataDir)) {
@@ -74,7 +73,7 @@ public class FileManager {
 
         writer.close();
     }
-    //  SAVE COURSES
+
     public static void saveCourses(List<Course> courses) throws IOException {
         ensureDataFolderExists();
 
