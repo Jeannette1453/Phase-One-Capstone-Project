@@ -12,6 +12,14 @@ public class GraduateStudent extends Student {
         this.researchFee = researchFee;
     }
 
+    public double getPerCreditRate() {
+        return perCreditRate;
+    }
+
+    public double getResearchFee() {
+        return researchFee;
+    }
+
     @Override
     public double calculateTuition(int credits) {
         return (credits * perCreditRate) + researchFee;

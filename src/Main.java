@@ -2,6 +2,7 @@ import exceptions.CourseFullException;
 import exceptions.StudentAlreadyEnrolledException;
 import manager.UniversityManager;
 import model.Course;
+import model.GraduateStudent;
 import model.Student;
 import model.UndergraduateStudent;
 import persistence.FileManager;
@@ -38,6 +39,17 @@ public class Main {
             sc.nextLine();
 
             if (choice == 1) {
+
+                System.out.println("\n--- Register Student ---");
+
+                // 1) Ask type
+                System.out.println("Student Type:");
+                System.out.println("1) Undergraduate");
+                System.out.println("2) Graduate");
+                System.out.print("Choose type: ");
+                int type = sc.nextInt();
+                sc.nextLine();
+
                 System.out.print("Name: ");
                 String name = sc.nextLine();
 
@@ -54,13 +66,33 @@ public class Main {
                 System.out.print("Department: ");
                 String dept = sc.nextLine();
 
-                System.out.print("Flat rate: ");
-                double flat = sc.nextDouble();
-                sc.nextLine();
+                Student s;
 
-                Student s = new UndergraduateStudent(name, email, id, gpa, dept, flat);
+                if (type == 1) {
+                    System.out.print("Flat rate: ");
+                    double flat = sc.nextDouble();
+                    sc.nextLine();
+
+                    s = new UndergraduateStudent(name, email, id, gpa, dept, flat);
+
+                } else if (type == 2) {
+                    System.out.print("Per credit rate: ");
+                    double rate = sc.nextDouble();
+                    sc.nextLine();
+
+                    System.out.print("Research fee: ");
+                    double research = sc.nextDouble();
+                    sc.nextLine();
+
+                    s = new GraduateStudent(name, email, id, gpa, dept, rate, research);
+
+                } else {
+                    System.out.println("Invalid type. Student not registered.");
+                    continue;
+                }
+
                 um.registerStudent(s);
-                System.out.println("Student registered!");
+                System.out.println("Student registered as: " + s.getRole());
 
             } else if (choice == 2) {
                 System.out.print("Course Code: ");

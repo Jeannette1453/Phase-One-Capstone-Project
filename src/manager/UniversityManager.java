@@ -95,6 +95,13 @@ public class UniversityManager {
         System.out.println("Department: " + student.getDepartment());
         System.out.println("GPA: " + student.getGpa());
 
+        int credits = student.getTotalCredits();
+        double tuition = student.calculateTuition(credits);
+
+        System.out.println("Student Type: " + student.getRole());
+        System.out.println("Total Credits: " + credits);
+        System.out.println("Tuition: " + tuition);
+
         if (student.getCourses().isEmpty()) {
             System.out.println("No enrolled courses.");
         } else {
