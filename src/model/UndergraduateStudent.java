@@ -9,6 +9,10 @@ public class UndergraduateStudent extends Student {
         this.flatRate = flatRate;
     }
 
+    public double getFlatRate() {
+        return flatRate;
+    }
+
     @Override
     public double calculateTuition(int credits) {
         return flatRate;

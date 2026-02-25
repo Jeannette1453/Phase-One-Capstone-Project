@@ -1,6 +1,8 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
+import exceptions.CourseFullException;
+import exceptions.StudentAlreadyEnrolledException;
 
 public class Course {
 
@@ -42,23 +44,21 @@ public class Course {
 
         return roster;
     }
-    public void enrollStudent(Student student) {
+    public void enrollStudent(Student student)
+            throws CourseFullException, StudentAlreadyEnrolledException {
 
         if (roster.size() >= maxStudents) {
-            System.out.println("Course is full!");
-            return;
+            throw new CourseFullException("Course " + courseCode + " is full!");
         }
 
         if (roster.contains(student)) {
-            System.out.println("Student already enrolled!");
-            return;
+            throw new StudentAlreadyEnrolledException("Student already enrolled in " + courseCode);
         }
 
         roster.add(student);
         student.enrollInCourse(this);
-
-        System.out.println("Student enrolled successfully.");
     }
+
     @Override
     public String toString() {
         return courseCode + " - " + courseName + " (" + credits + " credits)";

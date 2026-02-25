@@ -47,6 +47,13 @@ public abstract class Student extends Person {
     public Map<Course, Double> getCourses() {
         return courses;
     }
+    public int getTotalCredits() {
+        int total = 0;
+        for (Course c : courses.keySet()) {
+            total += c.getCredits();
+        }
+        return total;
+    }
 
     public abstract double calculateTuition(int credits);
 
@@ -54,4 +61,5 @@ public abstract class Student extends Person {
     public String getRole() {
         return "Student";
     }
+
 }
